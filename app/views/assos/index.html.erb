@@ -14,14 +14,17 @@
       <th></th>
     </tr>
   </thead>
+  <tbody>
   <% @assos.each do |asso| %>
     <tr>
       <th><%= asso.member.pseudo %></th>
       <th><%= asso.member.email %></th>
       <th><%= asso.register %></th>
       <th><%= MemberPresentation.find_by(member_id: asso.member.id).description %></th>
-      <th>Show</th>
+      <th><%= link_to 'Show', asso_path(asso) %></th>
       <th>Edit</th>
       <th>Delete</th>
     </tr>
 <% end %>
+</tbody>
+</table>
