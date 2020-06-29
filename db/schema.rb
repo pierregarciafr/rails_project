@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_26_200528) do
+ActiveRecord::Schema.define(version: 2020_06_28_235001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assos", force: :cascade do |t|
+    t.string "register"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "member_presentations", force: :cascade do |t|
+    t.text "description"
+    t.bigint "member_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["member_id"], name: "index_member_presentations_on_member_id"
+  end
 
   create_table "members", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -23,8 +37,19 @@ ActiveRecord::Schema.define(version: 2020_06_26_200528) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "pseudo"
+    t.string "memberable_type"
+    t.bigint "memberable_id"
     t.index ["email"], name: "index_members_on_email", unique: true
+    t.index ["memberable_type", "memberable_id"], name: "index_members_on_memberable_type_and_memberable_id"
     t.index ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "member_presentations", "members"
 end
