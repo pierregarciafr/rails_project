@@ -26,8 +26,8 @@ end
 print 'creating associations'
 10.times do |i|
   print '.'
-  u = Asso.create(register:"asso_#{i}")
-  m = Member.create(email:"asso_#{i}@gmail.com", password:'password', password_confirmation: 'password', memberable: u)
+  u = Asso.create(register:"A#{i.to_s * 5}")
+  m = Member.create(email:"asso_#{i}@gmail.com", password:'password', password_confirmation: 'password', pseudo: "asso_#{i}", memberable: u)
   MemberPresentation.create(description:'Lorem ipsum e tutti frutti', member: m)
 end
 
